@@ -13,3 +13,7 @@ override.tf.json
 *_override.tf.json
 .terraformrc
 terraform.rc
+
+# VNet Terraform files
+vnet/.terraform/
+vnet/.terraform.lock.hcl
