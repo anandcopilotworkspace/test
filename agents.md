@@ -20,3 +20,5 @@ When asked to create Terraform using an Azure Verified Module (AVM):
    - Omit AVM inputs
    - Generate tutorial or example text
    - Add extra files unless explicitly requested
+
+7. Dont generate output file unless asked
