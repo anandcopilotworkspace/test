@@ -1,0 +1,11 @@
+aks_clusters = {
+  production = {
+    location            = "eastus"
+    name                = "my-aks-cluster"
+    resource_group_name = "my-resource-group"
+    network = {
+      node_subnet_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/my-resource-group/providers/Microsoft.Network/virtualNetworks/my-vnet/subnets/aks-nodes"
+      pod_cidr       = "10.244.0.0/16"
+    }
+  }
+}
