@@ -90,7 +90,7 @@ You MUST ALSO generate:
 
 - EXACTLY one instance
 - Use ONLY keys defined in variables.tf
-- Do NOT include optional fields unless required
+- Include only required fields (omit optional fields)
 - Use minimal viable configuration
 - Ensure all maps and objects match the schema exactly
 
