@@ -1,0 +1,20 @@
+aks_clusters = {
+  example = {
+    location            = "eastus"
+    name                = "aks-prod-example"
+    resource_group_name = "rg-aks-prod"
+    network = {
+      node_subnet_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-example/subnets/subnet-nodes"
+      pod_cidr       = "10.244.0.0/16"
+    }
+    lock = {
+      kind = "CanNotDelete"
+    }
+    network_policy      = "cilium"
+    node_pools          = {}
+    os_disk_type        = "Managed"
+    os_sku              = "AzureLinux"
+    outbound_type       = "loadBalancer"
+    private_dns_zone_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-dns/providers/Microsoft.Network/privateDnsZones/privatelink.eastus.azmk8s.io"
+  }
+}
