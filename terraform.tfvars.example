@@ -1,7 +1,7 @@
 aks_clusters = {
   example = {
-    location            = "eastus"
-    name                = "aks-prod-example"
+    location            = "uksouth"
+    name                = "jj1212"
     resource_group_name = "rg-aks-prod"
     network = {
       node_subnet_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-network/providers/Microsoft.Network/virtualNetworks/vnet-example/subnets/subnet-nodes"
@@ -14,7 +14,7 @@ aks_clusters = {
     node_pools          = {}
     os_disk_type        = "Managed"
     os_sku              = "AzureLinux"
-    outbound_type       = "loadBalancer"
-    private_dns_zone_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-dns/providers/Microsoft.Network/privateDnsZones/privatelink.eastus.azmk8s.io"
+    outbound_type       = "managedNATGateway"
+    private_dns_zone_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-dns/providers/Microsoft.Network/privateDnsZones/privatelink.uksouth.azmk8s.io"
   }
 }
