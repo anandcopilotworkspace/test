@@ -58,5 +58,5 @@ variable "aks_clusters" {
     rbac_aad_tenant_id                = optional(string)
     tags                              = optional(map(string))
   }))
-  description = "Map of AKS cluster configurations"
+  description = "Map of AKS cluster configurations where keys are cluster identifiers and values contain cluster-specific settings including required fields (location, name, network, resource_group_name) and optional configuration parameters"
 }
