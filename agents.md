@@ -15,48 +15,37 @@ You MUST NOT invent, infer, guess, or pattern-match inputs.
 
 If an input is not explicitly defined by the AVM module, it MUST NOT appear.
 
-If unsure whether an input exists, EXCLUDE it.
-
 You MUST NOT guess the target AVM module.
 
 2. Wrapper Structure (MANDATORY)
 
 You MUST use:
-
 source = "Azure/<avm-module-name>/azurerm"
-
 
 You MUST support multiple instances using for_each.
 
 You MUST expose EXACTLY ONE input variable of type:
-
 map(object({ ... }))
-
 
 You MUST NOT use azurerm_* resources.
 
-VARIABLES.TF RULES (CRITICAL)
-3. Required vs Optional Inputs
+VARIABLES.TF RULES (COPILOT-SAFE)
+3. REQUIRED vs OPTIONAL (NON-NEGOTIABLE)
 
 For each AVM variable:
 
-If the AVM variable:
+If the AVM variable contains ANY validation block,
+the wrapper MUST declare the variable as REQUIRED.
 
-Has a validation block, AND
+Only AVM variables WITHOUT a validation block
+MAY be declared using optional(...).
 
-The validation does NOT allow null
-→ The wrapper MUST define it as REQUIRED
+You MUST NOT declare a variable as optional
+if the AVM variable has a validation block.
 
-If the AVM variable:
+You MUST NOT invent defaults.
 
-Allows null explicitly, OR
-
-Has no validation
-→ The wrapper MAY define it as optional(...)
-
-You MUST NOT mark a variable as optional if passing null would fail AVM validation.
-
-You MUST NOT add defaults unless the AVM variable itself defines a default.
+You MUST NOT override AVM defaults.
 
 4. variables.tf Definitions
 
@@ -64,95 +53,59 @@ Required inputs → required attributes
 
 Optional inputs → optional(<type>)
 
-DO NOT invent defaults
+No defaults unless explicitly defined by the AVM module
 
-DO NOT override AVM defaults
-
-MAIN.TF VALUE-PASSING RULES (MANDATORY)
+MAIN.TF VALUE PASSING RULES
 5. Required Inputs
 
 Pass directly:
-
 name = each.value.name
 
-6. Optional Scalar Inputs (string, number, bool)
+6. Optional Scalar Inputs
 
 Pass directly.
 
 DO NOT use try(), coalesce(), lookup(), or conditionals.
 
-kubernetes_version = each.value.kubernetes_version
-enable_telemetry   = each.value.enable_telemetry
-
 7. Optional Map or Object Inputs That MUST NOT Be Null
 
-You MUST use coalesce():
-
-tags        = coalesce(each.value.tags, {})
+Use coalesce():
+tags = coalesce(each.value.tags, {})
 node_labels = coalesce(each.value.node_labels, {})
-node_pools  = coalesce(each.value.node_pools, {})
 
 8. Optional Object Inputs That Allow Null
 
-Pass directly:
-
-acr  = each.value.acr
-lock = each.value.lock
+Pass directly.
 
 9. FORBIDDEN PATTERNS
 
-You MUST NOT:
+try(each.value.x, null)
 
-Use try(each.value.x, null)
+try(each.value.x, <default>)
 
-Use try(each.value.x, <default>)
+lookup() on typed objects
 
-Override AVM defaults
+Passing null to validated AVM variables
 
-Use lookup() on typed objects
+Inventing fallback values
 
-Pass null to a variable that fails AVM validation
+try() is allowed ONLY if the expression can throw an evaluation error.
 
-Add conditional defaults
+OUTPUTS.TF
 
-try() is allowed ONLY if the expression itself can throw an evaluation error (rare).
+Expose ONLY outputs defined by the AVM module.
 
-OUTPUTS.TF RULES
-10. Outputs
-
-You MUST expose ONLY outputs exported by the AVM module.
-
-You MUST NOT transform, compute, or rename outputs.
-
-SAMPLE FILE GENERATION
-11. terraform.tfvars.example
-
-After generating:
-
-main.tf
-
-variables.tf
-
-outputs.tf
-
-You MUST ALSO generate:
+No transformations.
 
 terraform.tfvars.example
 
-
-Rules:
-
 EXACTLY one instance
-
-Use ONLY keys defined in variables.tf
 
 Include ALL required fields
 
-Do NOT include optional fields unless required
+Use ONLY keys defined in variables.tf
 
-Use minimal viable values
-
-Ensure all maps and objects match the schema exactly
+Minimal viable values
 
 OUTPUT FORMAT (STRICT)
 
@@ -176,9 +129,9 @@ NO links
 
 Terraform files ONLY
 
-INTERNAL RULE (NON-NEGOTIABLE)
+INTERNAL RULE (ENFORCED)
 
-If an AVM variable fails validation when null, the wrapper MUST treat it as REQUIRED.
-Use optional() only when null is explicitly safe.
+If an AVM variable has a validation block, it is REQUIRED in the wrapper.
+Null MUST NEVER be passed to validated AVM variables.
 Use coalesce() ONLY for maps or objects that must not be null.
 Never use try() for optional attributes.
