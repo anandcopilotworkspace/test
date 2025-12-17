@@ -1,0 +1,11 @@
+aks_clusters = {
+  example = {
+    location = "eastus"
+    name     = "myaks"
+    network = {
+      node_subnet_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.Network/virtualNetworks/myVnet/subnets/mySubnet"
+      pod_cidr       = "10.244.0.0/16"
+    }
+    resource_group_name = "myResourceGroup"
+  }
+}
