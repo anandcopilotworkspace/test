@@ -56,21 +56,25 @@ output "key_vault_secrets_provider_secret_identity_user_assigned_identity_id" {
 output "kube_admin_config" {
   description = "The kube_admin_config block for the Azure Kubernetes Managed Cluster"
   value       = { for k, v in module.aks_production : k => v.kube_admin_config }
+  sensitive   = true
 }
 
 output "kube_admin_config_raw" {
   description = "Raw Kubernetes config for the admin account"
   value       = { for k, v in module.aks_production : k => v.kube_admin_config_raw }
+  sensitive   = true
 }
 
 output "kube_config" {
   description = "The kube_config block for the Azure Kubernetes Managed Cluster"
   value       = { for k, v in module.aks_production : k => v.kube_config }
+  sensitive   = true
 }
 
 output "kube_config_raw" {
   description = "Raw Kubernetes config for the user account"
   value       = { for k, v in module.aks_production : k => v.kube_config_raw }
+  sensitive   = true
 }
 
 output "kubelet_identity_client_id" {
