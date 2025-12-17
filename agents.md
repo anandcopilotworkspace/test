@@ -150,3 +150,21 @@ Never hardcode values in main.tf.
 Never use try().
 
 Use coalesce() ONLY for map types.
+
+ADDITIONAL RULE: CROSS-FIELD CONSTRAINTS
+
+If the AVM module enforces a cross-field constraint where one of multiple variables must be specified :
+
+The wrapper MUST NOT guess or enforce one choice in variables.tf.
+
+All involved variables MUST remain optional in variables.tf.
+
+main.tf MUST pass values directly from each.value.<field>.
+
+The wrapper MUST NOT hardcode values to satisfy the constraint.
+
+For terraform.tfvars.example ONLY:
+
+The agent MUST include exactly ONE minimal valid option to satisfy the constraint.
+
+This is for example validity only and does NOT make the variable required.
