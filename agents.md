@@ -52,7 +52,7 @@ coalesce allowed ONLY for map types
 
 terraform.tfvars
 
-MUST be generated (not an example file)
+MUST be generated (this is a real, executable tfvars file)
 
 Exactly one instance
 
@@ -64,13 +64,24 @@ Include optional fields ONLY when required for the configuration to be valid at 
 
 Do NOT include optional fields with null values
 
-The tfvars MUST be directly executable with `terraform apply`
+The tfvars MUST run successfully with `terraform apply` without modification
 
 Cross-field constraints
 
 Do NOT enforce in wrapper
 
 For tfvars, choose ONE valid combination that satisfies provider/API requirements
+
+AVM Examples as tfvars Source
+
+If the AVM module contains example configurations:
+
+- Prefer deriving terraform.tfvars values from the AVM examples
+- Use the example that requires the fewest inputs
+- Copy only values that exist in the AVM variables.tf
+- Adjust structure to match the wrapper input map
+- Do NOT add optional fields that are not present in the example
+- Do NOT invent values not present in the example
 
 Output
 
