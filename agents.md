@@ -50,9 +50,9 @@ No try, lookup, conditionals, or ternaries
 
 coalesce allowed ONLY for map types
 
-terraform.tfvars.example
+terraform.tfvars
 
-Must be generated
+MUST be generated (not an example file)
 
 Exactly one instance
 
@@ -60,22 +60,24 @@ Use only variables from variables.tf
 
 Include all required fields
 
-Include optional fields only if needed for minimal validity
+Include optional fields ONLY when required for the configuration to be valid at apply time
+
+Do NOT include optional fields with null values
+
+The tfvars MUST be directly executable with `terraform apply`
 
 Cross-field constraints
 
 Do NOT enforce in wrapper
 
-Keep all related variables optional
-
-For tfvars example, include exactly one valid option
+For tfvars, choose ONE valid combination that satisfies provider/API requirements
 
 Output
 
 Generate ONLY:
 main.tf
 variables.tf
-terraform.tfvars.example
+terraform.tfvars
 
 No explanations
 
