@@ -1,6 +1,7 @@
 module "aks_production" {
   for_each = var.aks_clusters
   source   = "Azure/avm-ptn-aks-production/azurerm"
+  version  = "~> 0.5"
 
   location                        = each.value.location
   name                            = each.value.name
