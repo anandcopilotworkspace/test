@@ -1,7 +1,7 @@
 aks_clusters = {
   example = {
     location = "eastus"
-    name     = "aks-prod-cluster"
+    name     = "test-clluster1"
     network = {
       node_subnet_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/example-rg/providers/Microsoft.Network/virtualNetworks/example-vnet/subnets/example-subnet"
       pod_cidr       = "10.244.0.0/16"
@@ -16,7 +16,7 @@ virtual_networks = {
     location      = "eastus"
     parent_id     = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/example-rg"
     address_space = ["10.0.0.0/16"]
-    name          = "example-vnet"
+    name          = "test-vnet1"
     subnets = {
       subnet1 = {
         name             = "subnet1"
