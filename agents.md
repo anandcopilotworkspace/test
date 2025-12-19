@@ -14,6 +14,7 @@ If multiple AVM wrappers are generated, they MUST all be defined in the same:
 - main.tf
 - variables.tf
 - terraform.tfvars
+- provider.tf
 
 This rule applies BEFORE any files are created and overrides all other behavior.
 
@@ -52,6 +53,18 @@ Optional without default → optional(type)
 No new defaults
 
 No validation
+
+provider.tf
+
+MUST be generated
+
+Define the required_providers block for azurerm
+
+Configure the azurerm provider using input variables only
+
+Do NOT hardcode subscription_id, tenant_id, or features
+
+Expose provider inputs via variables.tf and terraform.tfvars when required
 
 main.tf
 
@@ -99,6 +112,7 @@ If the AVM module contains example configurations:
 Output
 
 Generate ONLY:
+provider.tf
 main.tf
 variables.tf
 terraform.tfvars
